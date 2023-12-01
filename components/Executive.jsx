@@ -43,7 +43,7 @@ span:hover {
     }
 
     span {
-        text-align: left;
+        text-align: right;
         padding-bottom: 0rem;
     }
   }

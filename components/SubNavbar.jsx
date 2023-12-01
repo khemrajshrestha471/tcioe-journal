@@ -204,7 +204,7 @@ const List2 = styled.div`
 
 const List3 = styled.div`
 @media (max-width: 400px) {
-  padding: 0 3rem;
+  padding: 0 3rem 2rem 3rem;
 }
 `;
 
