@@ -22,7 +22,32 @@ display: none;
 }
 `;
 
-const Buttons = styled.div`
+const DropdownContainer = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const DropdownContent = styled.div`
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  min-width: 160px;
+  border-radius: 4px;
+  padding: 0.5rem;
+  color: black;
+`;
+
+const DropdownOption = styled.div`
+  padding: 0.5rem;
+  &:hover {
+    cursor: pointer;
+    color: green;
+  }
+`;
+
+const Buttons = styled(DropdownContainer)`
 width: 100%;
 white-space: nowrap;
 padding: 1rem 5.1rem;
@@ -35,6 +60,11 @@ border-right: 1px solid gray;
     background-color: black;
     color: white;
     transition: 0.2s ease-in-out;
+    ${DropdownContent} {
+      display: block;
+      margin-top: 2rem;
+      margin-left: -2rem;
+    }
 }
 
 @media (max-width: 1500px) {
@@ -50,7 +80,7 @@ border-right: 1px solid gray;
 }
 `;
 
-const ButtonShow = styled.div`
+const ButtonShow = styled(DropdownContainer)`
 display: flex;
 align-items: center;
 padding: 1rem 5.29rem;
@@ -61,6 +91,9 @@ transition: 0.5s ease-in-out;
     background-color: black;
     color: white;
     transition: 0.2s ease-in-out;
+    ${DropdownContent} {
+      display: block;
+    }
 }
 
 @media (max-width: 1000px) {
@@ -229,7 +262,18 @@ const SubNavbar = () => {
     <FiMenu />
   </ShowMenu>}
     <ContainerFull>
-        <Buttons>About <Icons><IoIosArrowDown /></Icons></Buttons>
+        <Buttons>
+          About <Icons><IoIosArrowDown /></Icons>
+        <DropdownContent>
+        <CustomLink href="https://tcioe.edu.np/">
+          <DropdownOption>Aims and Scope</DropdownOption>
+          </CustomLink>
+          <hr />
+          <CustomLink href="https://tcioe.edu.np/">
+          <DropdownOption>Editorial Board</DropdownOption>
+          </CustomLink>
+        </DropdownContent>
+        </Buttons>
         <Buttons>Guide for authors</Buttons>
         <Buttons>Guide for reviewers</Buttons>
         <Buttons>Nepal Journals Online <Icons><MdOutlineArrowOutward /></Icons></Buttons>
@@ -240,7 +284,18 @@ const SubNavbar = () => {
 
 {showMenu ? (
           <ContainerLess>
-          <ButtonShow>About <IoIosArrowDown /></ButtonShow>
+          <ButtonShow>
+            About <IoIosArrowDown />
+            <DropdownContent>
+            <CustomLink href="https://tcioe.edu.np/">
+          <DropdownOption>Aims and Scope</DropdownOption>
+          </CustomLink>
+          <hr />
+          <CustomLink href="https://tcioe.edu.np/">
+          <DropdownOption>Editorial Board</DropdownOption>
+          </CustomLink>
+        </DropdownContent>
+            </ButtonShow>
           <ButtonShow>Guide for authors</ButtonShow>
           <ButtonShow>Guide for reviewers</ButtonShow>
           <ButtonShow>Nepal Journals Online <MdOutlineArrowOutward /></ButtonShow>
