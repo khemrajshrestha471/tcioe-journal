@@ -163,8 +163,11 @@ const SubNavbar = () => {
         <Buttons>Guide for authors<Icons><IoIosArrowRoundForward /></Icons></Buttons>
         </CustomLink>
         
+        <CustomLink href="https://nepjol.info/index.php/jiee?fbclid=IwAR23UYsuH4JMIVlzL31smBTFB2_a8hLjLoa_Z5O3xeE01NI8JVEzLL5JIX0">
         <Buttons>Nepal Journals Online <Icons><MdOutlineArrowOutward /></Icons></Buttons>
-        <CustomLink href="https://tcioe.edu.np/">
+        </CustomLink>
+
+        <CustomLink href="https://nepjol.info/index.php/jiee/about/submissions?fbclid=IwAR1n_W9gLATv9x805hXE-K7hznOiqmESQbhlTPhHe7UlN0MkKMlyP6ExQ54">
         <Buttons>Submit your article <Icons><MdOutlineArrowOutward /></Icons></Buttons>
         </CustomLink>
     </ContainerFull>
@@ -187,8 +190,11 @@ const SubNavbar = () => {
         <ButtonShow>Guide for authors</ButtonShow>
         </CustomLink>
 
+        <CustomLink href="https://nepjol.info/index.php/jiee?fbclid=IwAR23UYsuH4JMIVlzL31smBTFB2_a8hLjLoa_Z5O3xeE01NI8JVEzLL5JIX0">
           <ButtonShow>Nepal Journals Online <MdOutlineArrowOutward /></ButtonShow>
-          <CustomLink href="https://tcioe.edu.np/">
+          </CustomLink>
+
+          <CustomLink href="https://nepjol.info/index.php/jiee/about/submissions?fbclid=IwAR1n_W9gLATv9x805hXE-K7hznOiqmESQbhlTPhHe7UlN0MkKMlyP6ExQ54">
           <ButtonShow>Submit your article <MdOutlineArrowOutward /></ButtonShow>
           </CustomLink>
       </ContainerLess>
