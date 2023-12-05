@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import styled from "styled-components";
 import { FaRegCopyright } from "react-icons/fa";

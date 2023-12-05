@@ -1,15 +1,19 @@
 import Navbar from "@/components/Navbar";
 import SubNavbar from "@/components/SubNavbar";
-import Executive from "@/components/Executive";
-import Footer from "@/components/Footer";
+// import Description from "@/components/Description";
+// import Executive from "@/components/Executive";
+// import Footer from "@/components/Footer";
+
+
 
 export default function Home() {
   return (
     <>
 <Navbar />
 <SubNavbar />
-<Executive />
-<Footer />
+{/* <Description /> */}
+{/* <Executive /> */}
+{/* <Footer /> */}
     </>
   )
 }

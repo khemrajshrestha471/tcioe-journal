@@ -12,6 +12,7 @@ const Container = styled.div`
   position: sticky;
   top: 0;
   margin-bottom: -2rem;
+  z-index: 1;
 
   @media (max-width: 1000px) {
       display: grid;
