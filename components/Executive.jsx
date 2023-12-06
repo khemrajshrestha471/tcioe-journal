@@ -4,6 +4,7 @@ import styled from "styled-components";
 import img from "@/assets/khemsir.jpg";
 import Image from "next/legacy/image";
 import { MdOutlineArrowOutward } from "react-icons/md";
+import Link from "next/link";
 
 const ContainerExecutive = styled.div`
 background: #4B50B8;
@@ -19,6 +20,7 @@ h3 {
 span {
     float: right;
     margin-right: 5rem;
+    color: white;
 }
 
 span:hover {
@@ -94,6 +96,11 @@ p {
   }
 `;
 
+const CustomLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
+
 const Executive = () => {
   return (
     <ContainerExecutive>
@@ -108,7 +115,9 @@ const Executive = () => {
             <p>IOE, Thapathali Campus</p>
         </Desc>
         </Information>
+        <CustomLink href="/editorial-board">
         <span>View full editorial board <MdOutlineArrowOutward /></span>
+        </CustomLink>
     </ContainerExecutive>
   )
 }
