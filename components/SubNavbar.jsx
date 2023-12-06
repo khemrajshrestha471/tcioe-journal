@@ -72,11 +72,15 @@ justify-content: center;
 }
 
 @media (max-width: 1500px) {
-  padding: 1rem 4rem;
+  padding: 1rem 6rem;
 }
 
 @media (max-width: 1320px) {
-  padding: 1rem 2rem;
+  padding: 1rem 5rem;
+}
+
+@media (max-width: 1170px) {
+  padding: 1rem 3rem;
 }
 
 @media (max-width: 1000px) {
