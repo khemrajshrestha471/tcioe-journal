@@ -1,8 +1,10 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import img from "@/assets/khemsir.jpg";
 import Image from "next/legacy/image";
+import { SiOrcid } from "react-icons/si";
 
 const Information = styled.div`
   margin: 3rem 3rem 1rem 3rem;
@@ -21,7 +23,6 @@ const Information = styled.div`
       margin-bottom: 0.3rem;
     }
   }
-
 `;
 
 const Line = styled.div`
@@ -55,15 +56,15 @@ const Details = styled.div`
 
 const Photo = styled.div`
   width: 10rem;
-  height: 10rem; 
+  height: 10rem;
   overflow: hidden;
   border-radius: 50%;
   margin: 1rem 1rem 1rem 4rem;
 
   @media (max-width: 850px) {
-    display: block; 
-  text-align: center; 
-  margin: 0 auto;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
   }
 `;
 
@@ -83,11 +84,19 @@ const CircularImage = styled(Image)`
 
 const Desc = styled.div`
   margin-top: 2rem;
+  text-align: center;
   blockquote {
     margin-left: 2rem;
     font-weight: bold;
     font-size: 18px;
     padding: 0.3rem 0;
+    display: flex;
+
+    a {
+      color: #76b200;
+      font-size: 1.2rem;
+      padding-left: 0.2rem;
+    }
   }
 
   p {
@@ -103,9 +112,26 @@ const Desc = styled.div`
   @media (max-width: 850px) {
     text-align: center;
 
+    blockquote {
+      margin-left: 0;
+      justify-content: center;
+    }
+
     p {
       text-align: center;
       padding: 2px 0;
+    }
+  }
+`;
+
+const Icon = styled.div`
+  padding-left: 0.3rem;
+
+  @media (max-width: 700px) {
+    a {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
   }
 `;
@@ -115,104 +141,158 @@ import SubNavbar from "@/components/SubNavbar";
 import Footer from "@/components/Footer";
 
 const page = () => {
+  const [executiveData, setExecutiveData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://notices.tcioe.edu.np/api/journal/board-members/"
+        );
+        const data = await response.json();
+        setExecutiveData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <Navbar />
       <SubNavbar />
-      <Information>
-        <h3>Editorial Board</h3>
-        <Line width={"100px"} />
-        <h4>Editor-in-chief</h4>
-        <WholeLine />
-        <Details>
-          <Photo>
-            <CircularImage src={img} alt="Executive Photo" />
-          </Photo>
-          <Desc>
-            <blockquote>Khem Gyawali, PhD</blockquote>
-            <p>Assistant Professor</p>
-            <p>Department of Automobile and Mechanical Engineering</p>
-            <p>Thapathali Campus , Tribhuvan University, Nepal</p>
-            <p>
-              <a href="mailto:gyanwalikhem@ioe.edu.np">
-                gyanwalikhem@ioe.edu.np
-              </a>
-            </p>
-          </Desc>
-        </Details>
-        <h4>Editors</h4>
-        <WholeLine />
+      {executiveData.map((member) => (
+        <Information key={member.id}>
+          <h3>Editorial Board</h3>
+          <Line width={"100px"} />
 
-        <Details>
-          <Photo>
-            <CircularImage src={img} alt="Executive Photo" />
-          </Photo>
-          <Desc>
-            <blockquote>Khem Gyawali, PhD</blockquote>
-            <p>Assistant Professor</p>
-            <p>Department of Automobile and Mechanical Engineering</p>
-            <p>Thapathali Campus , Tribhuvan University, Nepal</p>
-            <p>
-              <a href="mailto:gyanwalikhem@ioe.edu.np">
-                gyanwalikhem@ioe.edu.np
-              </a>
-            </p>
-          </Desc>
-        </Details>
+          {member.role === "Editor-in-chief" ? (
+            <>
+              <h4>{member.role}</h4>
+              <WholeLine />
 
-        <Details>
-          <Photo>
-            <CircularImage src={img} alt="Executive Photo" />
-          </Photo>
-          <Desc>
-            <blockquote>Khem Gyawali, PhD</blockquote>
-            <p>Assistant Professor</p>
-            <p>Department of Automobile and Mechanical Engineering</p>
-            <p>Thapathali Campus , Tribhuvan University, Nepal</p>
-            <p>
-              <a href="mailto:gyanwalikhem@ioe.edu.np">
-                gyanwalikhem@ioe.edu.np
-              </a>
-            </p>
-          </Desc>
-        </Details>
+              <Details>
+                <Photo>
+                  <CircularImage
+                    src={member.image}
+                    alt={`${member.name}'s Photo`}
+                    width="150"
+                    height="150"
+                  />
+                </Photo>
+                <Desc>
+                  <blockquote>
+                    {member.name}{" "}
+                    <Icon>
+                      <a href={`${member.link}`} target="_blank">
+                        <SiOrcid />
+                      </a>
+                    </Icon>{" "}
+                  </blockquote>
+                  <p>{member.designation}</p>
+                  <p>{member.department}</p>
+                  <p>{member.organization}</p>
+                  <p>
+                    <a href={`mailto:${member.email}`}>{member.email}</a>
+                  </p>
+                </Desc>
+              </Details>
+            </>
+          ) : (
+            <>
+            <h3>Loading...</h3>
+            <WholeLine />
+            </>
+            
+          )}
 
-        <Details>
-          <Photo>
-            <CircularImage src={img} alt="Executive Photo" />
-          </Photo>
-          <Desc>
-            <blockquote>Khem Gyawali, PhD</blockquote>
-            <p>Assistant Professor</p>
-            <p>Department of Automobile and Mechanical Engineering</p>
-            <p>Thapathali Campus , Tribhuvan University, Nepal</p>
-            <p>
-              <a href="mailto:gyanwalikhem@ioe.edu.np">
-                gyanwalikhem@ioe.edu.np
-              </a>
-            </p>
-          </Desc>
-        </Details>
 
-        <h4>Patron</h4>
-        <WholeLine />
-        <Details>
-          <Photo>
-            <CircularImage src={img} alt="Executive Photo" />
-          </Photo>
-          <Desc>
-            <blockquote>Khem Gyawali, PhD</blockquote>
-            <p>Assistant Professor</p>
-            <p>Department of Automobile and Mechanical Engineering</p>
-            <p>Thapathali Campus , Tribhuvan University, Nepal</p>
-            <p>
-              <a href="mailto:gyanwalikhem@ioe.edu.np">
-                gyanwalikhem@ioe.edu.np
-              </a>
-            </p>
-          </Desc>
-        </Details>
-      </Information>
+          {member.role === "Editors" ? (
+            <>
+              <h4>{member.role}</h4>
+              <WholeLine />
+
+              <Details>
+                <Photo>
+                  <CircularImage
+                    src={member.image}
+                    alt={`${member.name}'s Photo`}
+                    width="150"
+                    height="150"
+                  />
+                </Photo>
+                <Desc>
+                  <blockquote>
+                    {member.name}{" "}
+                    <Icon>
+                      <a href={`${member.link}`} target="_blank">
+                        <SiOrcid />
+                      </a>
+                    </Icon>{" "}
+                  </blockquote>
+                  <p>{member.designation}</p>
+                  <p>{member.department}</p>
+                  <p>{member.organization}</p>
+                  <p>
+                    <a href={`mailto:${member.email}`}>{member.email}</a>
+                  </p>
+                </Desc>
+              </Details>
+            </>
+          ) : (
+            <>
+            <h3>Loading...</h3>
+            <WholeLine />
+            </>
+            
+          )}
+
+
+
+          {member.role === "Patron" ? (
+            <>
+              <h4>{member.role}</h4>
+              <WholeLine />
+
+              <Details>
+                <Photo>
+                  <CircularImage
+                    src={member.image}
+                    alt={`${member.name}'s Photo`}
+                    width="150"
+                    height="150"
+                  />
+                </Photo>
+                <Desc>
+                  <blockquote>
+                    {member.name}{" "}
+                    <Icon>
+                      <a href={`${member.link}`} target="_blank">
+                        <SiOrcid />
+                      </a>
+                    </Icon>{" "}
+                  </blockquote>
+                  <p>{member.designation}</p>
+                  <p>{member.department}</p>
+                  <p>{member.organization}</p>
+                  <p>
+                    <a href={`mailto:${member.email}`}>{member.email}</a>
+                  </p>
+                </Desc>
+              </Details>
+            </>
+          ) : (
+            <>
+            <WholeLine />
+            <h3>Loading...</h3>
+            <WholeLine />
+            </>
+            
+          )}
+        </Information>
+      ))}
       <Footer />
     </>
   );

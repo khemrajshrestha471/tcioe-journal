@@ -23,6 +23,7 @@ text-align: center;
 
 const LeftPortion = styled.div`
 padding: 1rem 0;
+text-align: left;
 
 h3 {
     padding-bottom: 0.1rem;
@@ -30,6 +31,10 @@ h3 {
 
 p {
     padding-bottom: 0.2rem;
+}
+
+span {
+  font-size: 0.9rem;
 }
 
 @media (max-width: 820px) {
@@ -62,7 +67,7 @@ const Footer = () => {
         <LeftPortion>
         <h3>Journal of Innovations in Engineering Education</h3>
         <p>journal@tcioe.edu.np</p>
-        <p><FaRegCopyright /> All Rights Reserved By IOE, Thapathali Campus, Kathmandu</p>
+        <p><span><FaRegCopyright /></span> All Rights Reserved By IOE, Thapathali Campus, Kathmandu</p>
         </LeftPortion>
         <RightPortion>
             <p>ISSN 2594-343X</p>

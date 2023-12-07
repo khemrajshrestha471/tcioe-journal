@@ -71,10 +71,12 @@ const TitleHeader = styled.div`
     background: #f97a00;
     border-radius: 0.2rem;
     font-weight: bold;
+    color: white;
   }
 
-  h3 {
-    padding-top: 0.5rem;
+  h2 {
+    padding-top: 0.8rem;
+    color: white;
   }
 
   @media (max-width: 1000px) {
@@ -112,10 +114,14 @@ const Navbar = () => {
           </TextContainer>
         </Flexbox>
       </CustomLink>
+      
       <TitleHeader>
+      <CustomLink href="/">
         <span>Journal of</span>
-        <h3>Innovations in Engineering Education</h3>
+        <h2>Innovations in Engineering Education</h2>
+        </CustomLink>
       </TitleHeader>
+      
       <UNumber>
         <p>ISSN 2594-343X</p>
       </UNumber>
