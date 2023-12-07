@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import img from "@/assets/khemsir.jpg";
 import Image from "next/legacy/image";
 import { SiOrcid } from "react-icons/si";
 
@@ -64,7 +63,7 @@ const Photo = styled.div`
   @media (max-width: 850px) {
     display: block;
     text-align: center;
-    margin: 0 auto;
+    margin: 1rem auto -2rem auto;
   }
 `;
 

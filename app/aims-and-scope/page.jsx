@@ -22,10 +22,6 @@ const Information = styled.div`
     text-align: justify;
   }
 
-  // @media (max-width: 800px) {
-  //   margin: 1rem;
-  // }
-
   @media (max-width: 800px) {
     margin: 1rem 0rem;
   }

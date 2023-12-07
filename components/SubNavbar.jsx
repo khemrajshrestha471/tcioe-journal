@@ -5,7 +5,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { MdOutlineArrowOutward } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
 import { ImCross } from "react-icons/im";
-import { IoIosArrowRoundForward } from "react-icons/io";
+import { VscBlank } from "react-icons/vsc";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -164,7 +164,7 @@ const SubNavbar = () => {
         </Buttons>
         
         <CustomLink href="/guide-for-authors">
-        <Buttons>Guide for authors<Icons><IoIosArrowRoundForward /></Icons></Buttons>
+        <Buttons>Guide for authors<Icons><VscBlank /></Icons></Buttons>
         </CustomLink>
         
         <CustomLink href="https://nepjol.info/index.php/jiee?fbclid=IwAR23UYsuH4JMIVlzL31smBTFB2_a8hLjLoa_Z5O3xeE01NI8JVEzLL5JIX0">
