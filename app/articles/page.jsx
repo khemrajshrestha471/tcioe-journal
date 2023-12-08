@@ -46,6 +46,10 @@ const IndividualCard = styled.div`
     font-size: 1.2rem;
     white-space: nowrap;
     padding-bottom: 0.5rem;
+
+    a {
+      color: black;
+    }
   }
 
   span {
@@ -73,7 +77,7 @@ const IndividualCard = styled.div`
   }
 `;
 
-const Articles = () => {
+const page = () => {
   const [executiveData, setExecutiveData] = useState([]);
   const [authorMap, setAuthorMap] = useState({});
 
@@ -124,7 +128,7 @@ const Articles = () => {
           {executiveData.map((verify) => (
             <ArticleLists key={verify.id}>
               <IndividualCard>
-                <p>{verify.title}</p>
+                <p><a href={`/articles/${verify.id}`} target="_blank">{verify.title}</a></p>
                 {verify.authors.length > 0 && (
                   <span>
                     {`${authorMap[verify.authors[0].id]} ... ... ... ${
@@ -153,4 +157,4 @@ const Articles = () => {
   );
 };
 
-export default Articles;
+export default page;

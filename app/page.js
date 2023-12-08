@@ -3,7 +3,7 @@ import SubNavbar from "@/components/SubNavbar";
 import Description from "@/components/Description";
 import Executive from "@/components/Executive";
 import CurrentIssue from "@/components/CurrentIssue";
-import Articles from "@/components/Articles";
+import Articles from "./articles/page";
 import Footer from "@/components/Footer";
 
 
