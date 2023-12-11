@@ -25,6 +25,7 @@ const ArticlePosition = styled.div`
 
   @media (max-width: 770px) {
     grid-template-columns: 1fr;
+    padding: 2rem auto;
   }
 `;
 
@@ -41,10 +42,10 @@ const ArticleLists = styled.div``;
 const IndividualCard = styled.div`
   padding: 1rem;
   text-align: justify;
+  
 
   p {
     font-size: 1.2rem;
-    white-space: nowrap;
     padding-bottom: 0.5rem;
 
     a {
@@ -128,11 +129,24 @@ const page = () => {
           {executiveData.map((verify) => (
             <ArticleLists key={verify.id}>
               <IndividualCard>
-                <p><a href={`/articles/${verify.id}`} target="_blank">{verify.title}</a></p>
-                {verify.authors.length > 0 && (
+                <p><a href={`/articles/${verify.id}`}>{verify.title}</a></p>
+                {verify.authors.length > 2 && (
                   <span>
                     {`${authorMap[verify.authors[0].id]} ... ... ... ${
                       authorMap[verify.authors[verify.authors.length - 1].id]
+                    }`}
+                  </span>
+                )}
+                 {verify.authors.length == 1 && (
+                  <span>
+                      {`${authorMap[verify.authors[0].id]
+                    }`}
+                  </span>
+                )}
+                 {verify.authors.length == 2 && (
+                  <span>
+                    {`${authorMap[verify.authors[0].id]}, ${
+                      authorMap[verify.authors[1].id]
                     }`}
                   </span>
                 )}
