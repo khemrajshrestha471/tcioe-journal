@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/legacy/image";
 import { SiOrcid } from "react-icons/si";
+import { SiGooglescholar } from "react-icons/si";
+import { FaResearchgate } from "react-icons/fa";
 
 const ContainerEditorial = styled.div`
 h4 {
@@ -119,12 +121,6 @@ const Desc = styled.div`
     font-size: 18px;
     padding: 0.3rem 0;
     display: flex;
-
-    a {
-      color: #76b200;
-      font-size: 1.2rem;
-      padding-left: 0.2rem;
-    }
   }
 
   p {
@@ -153,7 +149,25 @@ const Desc = styled.div`
 `;
 
 const Icon = styled.div`
-  padding-left: 0.3rem;
+  padding-left: 0.4rem;
+
+  a {
+    color: #76b200;
+    font-size: 1.2rem;
+  }
+
+  span {
+    a {
+      color: rgb(80, 80, 228);
+    }
+
+    span {
+      a {
+        color: black;
+        font-size: 1.3rem;
+      }
+    }
+  }
 
   @media (max-width: 700px) {
     a {
@@ -162,6 +176,7 @@ const Icon = styled.div`
       text-align: center;
     }
   }
+
 `;
 
 import Navbar from "@/components/Navbar";
@@ -213,12 +228,40 @@ const page = () => {
                 </Photo>
                 <Desc>
                   <blockquote>
-                    {member.name}
+                  {member.name}
+                    {member.orcid_id ? (
                     <Icon>
-                      <a href={`${member.link}`} target="_blank">
-                        <SiOrcid />
-                      </a>
-                    </Icon>
+                    <a href={`${member.orcid_id}`} target="_blank">
+                      <SiOrcid />
+                    </a>
+                  </Icon>
+                    ) : (
+                      ""
+                    )}
+                    {member.google_scholar_link ? (
+                    <Icon>
+                      <span>
+                    <a href={`${member.google_scholar_link}`} target="_blank">
+                      <SiGooglescholar />
+                    </a>
+                    </span>
+                  </Icon>
+                    ) : (
+                      ""
+                    )}
+                    {member.research_gate_link ? (
+                    <Icon>
+                      <span>
+                        <span>
+                        <a href={`${member.research_gate_link}`} target="_blank">
+                      <FaResearchgate />
+                    </a>
+                        </span>
+                    </span>
+                  </Icon>
+                    ) : (
+                      ""
+                    )}
                   </blockquote>
                   <p>{member.designation}</p>
                   <p>{member.department}</p>
@@ -253,11 +296,39 @@ const page = () => {
                 <Desc>
                   <blockquote>
                     {member.name}
+                    {member.orcid_id ? (
                     <Icon>
-                      <a href={`${member.link}`} target="_blank">
-                        <SiOrcid />
-                      </a>
-                    </Icon>
+                    <a href={`${member.orcid_id}`} target="_blank">
+                      <SiOrcid />
+                    </a>
+                  </Icon>
+                    ) : (
+                      ""
+                    )}
+                    {member.google_scholar_link ? (
+                    <Icon>
+                      <span>
+                    <a href={`${member.google_scholar_link}`} target="_blank">
+                      <SiGooglescholar />
+                    </a>
+                    </span>
+                  </Icon>
+                    ) : (
+                      ""
+                    )}
+                    {member.research_gate_link ? (
+                    <Icon>
+                      <span>
+                        <span>
+                        <a href={`${member.research_gate_link}`} target="_blank">
+                      <FaResearchgate />
+                    </a>
+                        </span>
+                    </span>
+                  </Icon>
+                    ) : (
+                      ""
+                    )}
                   </blockquote>
                   <p>{member.designation}</p>
                   <p>{member.department}</p>
@@ -292,11 +363,40 @@ const page = () => {
                 <Desc>
                   <blockquote>
                     {member.name}
+                    {member.orcid_id ? (
                     <Icon>
-                      <a href={`${member.link}`} target="_blank">
-                        <SiOrcid />
-                      </a>
-                    </Icon>
+                    <a href={`${member.orcid_id}`} target="_blank">
+                      <SiOrcid />
+                    </a>
+                  </Icon>
+                    ) : (
+                      ""
+                    )}
+                    {member.google_scholar_link ? (
+                    <Icon>
+                      <span>
+                    <a href={`${member.google_scholar_link}`} target="_blank">
+                      <SiGooglescholar />
+                    </a>
+                    </span>
+                  </Icon>
+                    ) : (
+                      ""
+                    )}
+                    {member.research_gate_link ? (
+                    <Icon>
+                      <span>
+                        <span>
+                        <a href={`${member.research_gate_link}`} target="_blank">
+                      <FaResearchgate />
+                    </a>
+                        </span>
+                    </span>
+                  </Icon>
+                    ) : (
+                      ""
+                    )}
+
                   </blockquote>
                   <p>{member.designation}</p>
                   <p>{member.department}</p>
