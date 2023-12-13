@@ -79,6 +79,7 @@ const IndividualCard = styled.div`
 `;
 
 const ViewButton = styled.div`
+margin-top: 0.5rem;
 padding-left: 1rem;
 button {
   padding: 0.5rem 1rem;
