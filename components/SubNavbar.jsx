@@ -16,11 +16,20 @@ display: flex;
 `;
 
 const ContainerLess = styled.div`
+position: sticky;
+top: 12.3rem;
+z-index: 1;
 display: none;
 
 @media (max-width: 1000px) {
   display: block;
-  
+  background: white;
+  width: 91%;
+  transform: translate(5%, 0);
+}
+
+@media (max-width: 400px) {
+  top: 14.1rem;
 }
 `;
 
