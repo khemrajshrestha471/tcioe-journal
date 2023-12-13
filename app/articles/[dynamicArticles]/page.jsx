@@ -445,14 +445,14 @@ const page = ({ params }) => {
                   <h3>Disclaimer:</h3>
                   <p>
                     This page may contain partial information. For more details,
-                    please refer to
+                    please refer to 
                     <a
                       href={`https://nepjol.info/index.php/jiee/article/view/${
                         article.url_id.split("/")[0]
                       }`}
                       target="_blank"
                     >
-                      this link.
+                      &nbsp;this link.
                     </a>
                   </p>
                 </>
