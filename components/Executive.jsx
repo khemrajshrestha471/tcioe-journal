@@ -121,7 +121,7 @@ const Executive = () => {
   return (
     <>
         <ContainerExecutive>
-          <h3>Managing Executive Editor</h3>
+          <h3>Editor-in-Chief</h3>
           <Information>
             <Photo>
               <CircularImage
