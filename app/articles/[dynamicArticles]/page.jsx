@@ -343,7 +343,7 @@ const page = ({ params }) => {
                               <br />
                                 <pre key={index}>
                                   {String.fromCharCode(97 + index)}: &nbsp;
-                                  {author.affiliation}, {author.country}
+                                  {author.affiliation}, {author.bio}, {author.country}
                                 </pre>
                               </>
                             )
