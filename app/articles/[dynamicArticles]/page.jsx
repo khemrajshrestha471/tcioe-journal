@@ -10,6 +10,7 @@ import { IoIosArrowUp } from "react-icons/io";
 import { MdArrowOutward } from "react-icons/md";
 import Footer from "@/components/Footer";
 import { FaRegFilePdf } from "react-icons/fa";
+import { FaCircle } from "react-icons/fa6";
 // import HelperNavbar from "../HelperNavbar";
 
 const ContainerIssues = styled.div`
@@ -52,6 +53,10 @@ const IssuesBody = styled.div`
     &:hover {
       cursor: pointer;
     }
+  }
+
+  pre {
+    white-space: wrap;
   }
 `;
 
@@ -149,6 +154,15 @@ const Pdf = styled.div`
   @media (max-width: 600px) {
     padding: 0.5rem 0;
   }
+`;
+
+const DisciplineGenre = styled.div`
+padding-bottom: 0.5rem;
+span {
+  font-size: 0.6rem;
+  color: green;
+  padding: 0 0.5rem;
+}
 `;
 
 const Keywords = styled.div`
@@ -316,17 +330,17 @@ const page = ({ params }) => {
                       <span>
                         <blockquote>Vol.&nbsp;</blockquote>
                         <p>{article.volume},</p>
-                      </span>{" "}
+                      </span>
                       &nbsp;
                       <span>
-                        <blockquote>Issue&nbsp;</blockquote>{" "}
+                        <blockquote>Issue&nbsp;</blockquote>
                         <p>{article.number},</p>
-                      </span>{" "}
+                      </span>
                       &nbsp;
                       <span>
-                        <blockquote>pp&nbsp;</blockquote>{" "}
+                        <blockquote>pp&nbsp;</blockquote>
                         <p>{article.pages},</p>
-                      </span>{" "}
+                      </span>
                       &nbsp;
                       <span>
                         <p>{formatDate(article.date_published)}.</p>
@@ -342,8 +356,24 @@ const page = ({ params }) => {
                               <>
                               <br />
                                 <pre key={index}>
-                                  {String.fromCharCode(97 + index)}: &nbsp;
-                                  {author.affiliation}, {author.bio}, {author.country}
+                                  <strong>{String.fromCharCode(97 + index)}:</strong>&nbsp;
+                                  <>
+                                  {author.bio ? (
+                                    author.bio + ", "
+                                  ) : (
+                                    ""
+                                  )}
+                                  {author.affiliation ? (
+                                    author.affiliation + ", "
+                                  ) : (
+                                    ""
+                                  )}
+                                  {author.country ? (
+                                    author.country
+                                  ) : (
+                                    ""
+                                  )}
+                                  </>
                                 </pre>
                               </>
                             )
@@ -385,6 +415,25 @@ const page = ({ params }) => {
                     </Pdf>
                   </DoiPdf>
 
+                  <DisciplineGenre>
+                    {article.genre ? (
+                      article.genre
+                    ) : (
+                      ""
+                    )} 
+                    {article.genre && article.discipline ? (
+                      <span><FaCircle /></span> 
+                    ) : (
+                      ""
+                    )}
+                    
+                    {article.discipline ? (
+                      article.discipline
+                    ) : (
+                      ""
+                    )}
+                  </DisciplineGenre>
+
                   <Keywords>
                     <strong>Keywords: &nbsp;</strong> <p>{article.keywords}</p>
                   </Keywords>
@@ -396,7 +445,7 @@ const page = ({ params }) => {
                   <h3>Disclaimer:</h3>
                   <p>
                     This page may contain partial information. For more details,
-                    please refer to{" "}
+                    please refer to
                     <a
                       href={`https://nepjol.info/index.php/jiee/article/view/${
                         article.url_id.split("/")[0]
