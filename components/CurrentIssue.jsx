@@ -19,8 +19,12 @@ max-width: 90rem;
 const IssueBody = styled.div`
 background-color: #F1F1F1;
 display: flex;
-gap: 2rem;
+gap: 1.6rem;
 margin-top: 2rem;
+
+@media (max-width: 1200px) {
+  gap: 0.5rem;
+}
 
 @media (max-width: 900px) {
   display: block;
@@ -94,7 +98,7 @@ const CurrentIssue = () => {
         <IssueBody>
         {executiveData.map((verify) => (
           <IssueDesc key={verify.id}>
-            {verify.id == 3 ? (
+            {verify.id == 5 ? (
               <ImageLoad>
                 <Image src={verify.image} width="320" height="400" />
               </ImageLoad>
@@ -106,7 +110,7 @@ const CurrentIssue = () => {
           <Description>
             <h2>Journal of</h2>
             <h2>Innovations in Engineering Education</h2>
-            <p>Volume 3, Issue-1, March 2020</p>
+            <p>Volume 5, Issue-1, March 2022</p>
             <a href="/all-issues">View all issues <FaArrowRight /></a>
           </Description>
         </IssueBody>     

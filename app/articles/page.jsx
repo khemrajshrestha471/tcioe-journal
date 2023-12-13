@@ -78,9 +78,31 @@ const IndividualCard = styled.div`
   }
 `;
 
+const ViewButton = styled.div`
+padding-left: 1rem;
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    color: red;
+  }
+}
+
+`;
+
 const page = () => {
-  const [executiveData, setExecutiveData] = useState([]);
+  const [executiveData, setExecutiveData] = useState({
+    visibleArticles: [],
+    hiddenArticles: [],
+  });
   const [authorMap, setAuthorMap] = useState({});
+  const [showAllArticles, setShowAllArticles] = useState(false);
+
 
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long" };
@@ -98,7 +120,6 @@ const page = () => {
           "https://notices.tcioe.edu.np/api/journal/articles/"
         );
         const data = await response.json();
-        setExecutiveData(data);
 
         const newAuthorMap = {};
         data.forEach((article) => {
@@ -110,6 +131,11 @@ const page = () => {
             ] = `${author.given_name} ${author.family_name}`;
           });
         });
+
+        setExecutiveData({
+          visibleArticles: data.slice(0, 9),
+          hiddenArticles: data.slice(9),
+        });
         setAuthorMap(newAuthorMap);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -119,6 +145,14 @@ const page = () => {
     fetchData();
   }, []);
 
+  const handleViewMore = () => {
+    setShowAllArticles(true);
+  };
+
+  const handleViewLess = () => {
+    setShowAllArticles(false);
+  };
+
   return (
     <>
       <ArticleBody>
@@ -126,13 +160,13 @@ const page = () => {
         <Line width={"70px"} />
         <ArticlePosition>
 
-          {executiveData.map((verify) => (
+        {(showAllArticles ? executiveData.visibleArticles.concat(executiveData.hiddenArticles) : executiveData.visibleArticles).map((verify) => (
             <ArticleLists key={verify.id}>
               <IndividualCard>
                 <p><a href={`/articles/${verify.id}`}>{verify.title}</a></p>
                 {verify.authors.length > 2 && (
                   <span>
-                    {`${authorMap[verify.authors[0].id]} ... ... ... ${
+                    {`${authorMap[verify.authors[0].id]} .... ${
                       authorMap[verify.authors[verify.authors.length - 1].id]
                     }`}
                   </span>
@@ -164,6 +198,16 @@ const page = () => {
           ))}
 
         </ArticlePosition>
+
+        {executiveData.hiddenArticles.length > 0 && (
+  <ViewButton>
+                {showAllArticles ? (
+                  <button onClick={handleViewLess}>View Less</button>
+                ) : (
+                  <button onClick={handleViewMore}>View More</button>
+                )}
+</ViewButton>
+          )}
 
         
       </ArticleBody>

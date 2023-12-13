@@ -5,8 +5,31 @@ import styled from "styled-components";
 import Image from "next/legacy/image";
 import { SiOrcid } from "react-icons/si";
 
+const ContainerEditorial = styled.div`
+h4 {
+  margin: 1rem 3rem 0rem 6rem;
+}
+
+@media (max-width: 1000px) {
+  h4 {
+    margin: 1rem 3rem 0rem 1rem;
+  }
+
+}
+`;
+
+const EditorialDetails = styled.div`
+margin: 3rem 3rem 0rem 3rem;
+  padding-left: 3rem;
+  
+  @media (max-width: 1000px) {
+    margin: 3rem 3rem 0rem 0rem;
+    padding-left: 1rem;
+  }
+`;
+
 const Information = styled.div`
-  margin: 3rem 3rem 1rem 3rem;
+margin-left: 2rem;
   h3 {
     padding-left: 3rem;
   }
@@ -29,18 +52,24 @@ const Line = styled.div`
   width: ${(props) => (props.width ? props.width : "100px")};
   background-color: #f97a00;
   border-radius: 6px;
-  margin: 5px 3rem 1.5rem 3rem;
+  margin-top: 5px;
 `;
 
 const WholeLine = styled.div`
   height: 1px;
-  width: 93%;
+  width: 90%;
   background-color: rgb(170, 170, 172);
-  margin: 3px 3rem;
+  margin-left: 6rem;
+  margin-top: 5px;
 
-  @media (max-width: 850px) {
+  @media (max-width: 1000px) {
     margin: 3px 1rem;
-    width: 91%;
+    width: 95%;
+  }
+
+  @media (max-width: 400px) {
+    margin: 3px 1rem;
+    width: 90%;
   }
 `;
 
@@ -159,19 +188,20 @@ const page = () => {
   }, []);
 
   return (
-    <>
+    <ContainerEditorial>
       <Navbar />
       <SubNavbar />
+      <EditorialDetails>
+        <h3>Editorial Board</h3>
+        <Line width={"100px"} />
+      </EditorialDetails>
+
+      <h4>Editor-In-Chief</h4>
+      <WholeLine />
       {executiveData.map((member) => (
         <Information key={member.id}>
-          <h3>Editorial Board</h3>
-          <Line width={"100px"} />
-
-          {member.role === "Editor-in-chief" ? (
+          {member.role === "Editor-In_Chief" ? (
             <>
-              <h4>{member.role}</h4>
-              <WholeLine />
-
               <Details>
                 <Photo>
                   <CircularImage
@@ -183,12 +213,12 @@ const page = () => {
                 </Photo>
                 <Desc>
                   <blockquote>
-                    {member.name}{" "}
+                    {member.name}
                     <Icon>
                       <a href={`${member.link}`} target="_blank">
                         <SiOrcid />
                       </a>
-                    </Icon>{" "}
+                    </Icon>
                   </blockquote>
                   <p>{member.designation}</p>
                   <p>{member.department}</p>
@@ -200,100 +230,91 @@ const page = () => {
               </Details>
             </>
           ) : (
-            <>
-            <h3>Loading...</h3>
-            <WholeLine />
-            </>
-            
-          )}
-
-
-          {member.role === "Editors" ? (
-            <>
-              <h4>{member.role}</h4>
-              <WholeLine />
-
-              <Details>
-                <Photo>
-                  <CircularImage
-                    src={member.image}
-                    alt={`${member.name}'s Photo`}
-                    width="150"
-                    height="150"
-                  />
-                </Photo>
-                <Desc>
-                  <blockquote>
-                    {member.name}{" "}
-                    <Icon>
-                      <a href={`${member.link}`} target="_blank">
-                        <SiOrcid />
-                      </a>
-                    </Icon>{" "}
-                  </blockquote>
-                  <p>{member.designation}</p>
-                  <p>{member.department}</p>
-                  <p>{member.organization}</p>
-                  <p>
-                    <a href={`mailto:${member.email}`}>{member.email}</a>
-                  </p>
-                </Desc>
-              </Details>
-            </>
-          ) : (
-            <>
-            <h3>Loading...</h3>
-            <WholeLine />
-            </>
-            
-          )}
-
-
-
-          {member.role === "Patron" ? (
-            <>
-              <h4>{member.role}</h4>
-              <WholeLine />
-
-              <Details>
-                <Photo>
-                  <CircularImage
-                    src={member.image}
-                    alt={`${member.name}'s Photo`}
-                    width="150"
-                    height="150"
-                  />
-                </Photo>
-                <Desc>
-                  <blockquote>
-                    {member.name}{" "}
-                    <Icon>
-                      <a href={`${member.link}`} target="_blank">
-                        <SiOrcid />
-                      </a>
-                    </Icon>{" "}
-                  </blockquote>
-                  <p>{member.designation}</p>
-                  <p>{member.department}</p>
-                  <p>{member.organization}</p>
-                  <p>
-                    <a href={`mailto:${member.email}`}>{member.email}</a>
-                  </p>
-                </Desc>
-              </Details>
-            </>
-          ) : (
-            <>
-            <WholeLine />
-            <h3>Loading...</h3>
-            <WholeLine />
-            </>
-            
+            ""
           )}
         </Information>
       ))}
+
+      <h4>Editors</h4>
+      <WholeLine />
+      {executiveData.map((member) => (
+        <Information key={member.id}>
+          {member.role === "Editors" ? (
+            <>
+              <Details>
+                <Photo>
+                  <CircularImage
+                    src={member.image}
+                    alt={`${member.name}'s Photo`}
+                    width="150"
+                    height="150"
+                  />
+                </Photo>
+                <Desc>
+                  <blockquote>
+                    {member.name}
+                    <Icon>
+                      <a href={`${member.link}`} target="_blank">
+                        <SiOrcid />
+                      </a>
+                    </Icon>
+                  </blockquote>
+                  <p>{member.designation}</p>
+                  <p>{member.department}</p>
+                  <p>{member.organization}</p>
+                  <p>
+                    <a href={`mailto:${member.email}`}>{member.email}</a>
+                  </p>
+                </Desc>
+              </Details>
+            </>
+          ) : (
+            ""
+          )}
+        </Information>
+      ))}
+
+      <h4>Patron</h4>
+      <WholeLine />
+      {executiveData.map((member) => (
+        <Information key={member.id}>
+          {member.role === "Patron" ? (
+            <>
+              <Details>
+                <Photo>
+                  <CircularImage
+                    src={member.image}
+                    alt={`${member.name}'s Photo`}
+                    width="150"
+                    height="150"
+                  />
+                </Photo>
+                <Desc>
+                  <blockquote>
+                    {member.name}
+                    <Icon>
+                      <a href={`${member.link}`} target="_blank">
+                        <SiOrcid />
+                      </a>
+                    </Icon>
+                  </blockquote>
+                  <p>{member.designation}</p>
+                  <p>{member.department}</p>
+                  <p>{member.organization}</p>
+                  <p>
+                    <a href={`mailto:${member.email}`}>{member.email}</a>
+                  </p>
+                </Desc>
+              </Details>
+            </>
+          ) : (
+            ""
+          )}
+        </Information>
+      ))}
+
       <Footer />
-    </>
+    </ContainerEditorial>
   );
 };
 

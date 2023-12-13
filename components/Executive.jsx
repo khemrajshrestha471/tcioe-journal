@@ -13,7 +13,7 @@ const ContainerExecutive = styled.div`
   padding: 0 2rem;
 
   h3 {
-    padding: 1.5rem 5rem;
+    padding: 1.5rem 3rem;
     white-space: nowrap;
   }
 
@@ -37,7 +37,9 @@ const ContainerExecutive = styled.div`
   }
 
   @media (max-width: 500px) {
-    height: 25rem;
+    height: 28rem;
+    padding: 0 rem;
+    text-align: center;
 
     h3 {
       padding: 1.5rem 2rem;
@@ -55,19 +57,24 @@ const Information = styled.div`
   padding: 0.5rem 5rem;
   display: flex;
   align-items: center;
+  gap: 2rem;
 
   @media (max-width: 500px) {
     display: block;
     margin-top: -3rem;
+    padding: 0.5rem 0rem;
   }
 `;
 
 const Photo = styled.div`
   width: 10rem;
-  height: 10rem; /* Ensure a square container for a circular image */
+  height: 10rem; 
   overflow: hidden;
   border-radius: 50%;
-  margin-right: 1rem; /* Adjust spacing as needed */
+  @media (max-width: 500px) {
+    margin-top: 2rem;
+    transform: translate(50%, 1%);
+  }
 `;
 
 const CircularImage = styled(Image)`
@@ -88,6 +95,10 @@ const Desc = styled.div`
     white-space: nowrap;
   }
 
+  blockquote {
+    padding: 2px 0;
+  }
+
   @media (max-width: 500px) {
     h4 {
       padding-top: 1rem;
@@ -98,44 +109,33 @@ const Desc = styled.div`
 const CustomLink = styled(Link)`
   text-decoration: none;
   color: black;
+
+  @media (max-width: 500px) {
+    span {
+      text-align: center;
+    }
+  }
 `;
 
 const Executive = () => {
-  const [executiveData, setExecutiveData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://notices.tcioe.edu.np/api/journal/board-members/"
-        );
-        const data = await response.json();
-        setExecutiveData(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
   return (
     <>
-      {executiveData.map((member) => (
-        <ContainerExecutive key={member.id}>
+        <ContainerExecutive>
           <h3>Managing Executive Editor</h3>
           <Information>
             <Photo>
               <CircularImage
-                src={member.image}
-                alt={`${member.name}'s Photo`}
+                src="https://notices.tcioe.edu.np/media/media/editorial_board/images/Rajkumar.jpg"
+                alt="photo"
                 width="150"
                 height="150"
               />
             </Photo>
             <Desc>
-              <h4>Dr. Khem Gyawali</h4>
-              <p>Campus Chief</p>
-              <p>IOE, Thapathali Campus</p>
+              <h4>Raj Kumar Chaulagain</h4>
+              <p>Assistant Campus Chief</p>
+              <blockquote>Department of Automobile and Mechanical Engineering</blockquote>
+              <blockquote>Thapathali Campus , Tribhuvan University, Nepal</blockquote>
             </Desc>
           </Information>
           <CustomLink href="/editorial-board">
@@ -144,7 +144,6 @@ const Executive = () => {
             </span>
           </CustomLink>
         </ContainerExecutive>
-      ))}
     </>
   );
 };

@@ -10,7 +10,7 @@ import { IoIosArrowUp } from "react-icons/io";
 import { MdArrowOutward } from "react-icons/md";
 import Footer from "@/components/Footer";
 import { FaRegFilePdf } from "react-icons/fa";
-import HelperNavbar from "../HelperNavbar";
+// import HelperNavbar from "../HelperNavbar";
 
 const ContainerIssues = styled.div`
   h1 {
@@ -18,6 +18,10 @@ const ContainerIssues = styled.div`
   }
   a {
     text-decoration: none;
+  }
+
+  h3 {
+    color: #dc4350;
   }
 
   span {
@@ -62,6 +66,7 @@ const WholeContainer = styled.div`
   display: grid;
   grid-template-columns: 2fr 1.2fr;
   gap: 3rem;
+  margin: 2rem 0;
 
   @media (max-width: 1100px) {
     grid-template-columns: 1fr;
@@ -113,11 +118,21 @@ const DoiPdf = styled.div`
   padding: 0.5rem 0;
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 600px) {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Doi = styled.div`
   display: flex;
   align-items: center;
+  white-space: nowrap;
+
+  @media (max-width: 400px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const Pdf = styled.div`
@@ -128,6 +143,10 @@ const Pdf = styled.div`
 
   button:hover {
     cursor: pointer;
+  }
+
+  @media (max-width: 600px) {
+    padding: 0.5rem 0;
   }
 `;
 
@@ -195,10 +214,6 @@ const DetailInfo = styled.div`
 span {
   display: flex;
   padding: 0.1rem 0;
-
-  blockquote {
-    font-weight: bold;
-  }
 }
 
 `;
@@ -274,7 +289,7 @@ const page = ({ params }) => {
     <>
       <Navbar />
       <SubNavbar />
-      <HelperNavbar />
+      {/* <HelperNavbar /> */}
       <WholeContainer>
         <LeftContainer>
           {executiveData.map((article) => (
@@ -305,9 +320,10 @@ const page = ({ params }) => {
                   </NameAuthor>
                   <DetailInfo>
                   <span>
-                    <span><blockquote>Volume: &nbsp;</blockquote> <p>{article.volume}</p></span> &nbsp;&nbsp;&nbsp;
-                    <span><blockquote>Date: &nbsp;</blockquote> <p>{formatDate(article.date_published)}</p></span> &nbsp;&nbsp;&nbsp;
-                    <span><blockquote>Pages: &nbsp;</blockquote> <p>{article.pages}</p></span>
+                    <span><blockquote>Vol.&nbsp;</blockquote><p>{article.volume},</p></span> &nbsp;
+                    <span><blockquote>Issue&nbsp;</blockquote> <p>{article.number},</p></span> &nbsp;
+                    <span><blockquote>pp&nbsp;</blockquote> <p>{article.pages},</p></span> &nbsp;
+                    <span><p>{formatDate(article.date_published)}.</p></span>
                     </span>
                   </DetailInfo>
                   <IssuesBody>
@@ -369,6 +385,8 @@ const page = ({ params }) => {
                     <Line width={"80px"} />
                     <p>{article.abstract}</p>
                   </AbstractContent>
+                  <h3>Disclaimer:</h3>
+                  <p>This page may contain partial information. For more details, please refer to <a href={`https://nepjol.info/index.php/jiee/article/view/${article.url_id.split('/')[0]}`} target="_blank">this link.</a></p>
                 </>
               ) : (
                 ""
@@ -392,7 +410,7 @@ const page = ({ params }) => {
                   <Name>
                     {article.authors.length > 2 && (
                       <span>
-                        {`${authorMap[article.authors[0].id]} ... ... ... ${
+                        {`${authorMap[article.authors[0].id]} .... ${
                           authorMap[
                             article.authors[article.authors.length - 1].id
                           ]
