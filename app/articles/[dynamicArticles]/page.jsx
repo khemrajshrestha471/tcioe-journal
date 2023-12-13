@@ -48,6 +48,7 @@ const IssuesBody = styled.div`
   }
 
   p {
+    margin-top: 0.7rem;
     &:hover {
       cursor: pointer;
     }
@@ -187,7 +188,7 @@ const Title = styled.div`
 `;
 
 const Name = styled.div`
-padding: 0.3rem 0;
+  padding: 0.3rem 0;
   span {
     font-size: 1.1rem;
     text-align: justify;
@@ -206,16 +207,13 @@ const WholeUnderline = styled.div`
   height: 0.5px;
   background-color: red;
   border-radius: 2px;
-
 `;
 
 const DetailInfo = styled.div`
-
-span {
-  display: flex;
-  padding: 0.1rem 0;
-}
-
+  span {
+    display: flex;
+    padding: 0.1rem 0;
+  }
 `;
 
 const page = ({ params }) => {
@@ -304,12 +302,7 @@ const page = ({ params }) => {
                           <React.Fragment key={index}>
                             {index > 0 && "\u00A0\u00A0\u00A0\u00A0"}
                             {author.given_name} {author.family_name}
-                            {author.bio ===
-                            "Department of Electronics and Computer Engineering" ? (
-                              <sup>a &nbsp;</sup>
-                            ) : (
-                              <sup>b &nbsp;</sup>
-                            )}
+                            <sup>{String.fromCharCode(97 + index)}&nbsp;</sup>
                             <a href={`mailto:${author.email}`}>
                               <IoIosMail />
                             </a>
@@ -319,27 +312,42 @@ const page = ({ params }) => {
                     )}
                   </NameAuthor>
                   <DetailInfo>
-                  <span>
-                    <span><blockquote>Vol.&nbsp;</blockquote><p>{article.volume},</p></span> &nbsp;
-                    <span><blockquote>Issue&nbsp;</blockquote> <p>{article.number},</p></span> &nbsp;
-                    <span><blockquote>pp&nbsp;</blockquote> <p>{article.pages},</p></span> &nbsp;
-                    <span><p>{formatDate(article.date_published)}.</p></span>
+                    <span>
+                      <span>
+                        <blockquote>Vol.&nbsp;</blockquote>
+                        <p>{article.volume},</p>
+                      </span>{" "}
+                      &nbsp;
+                      <span>
+                        <blockquote>Issue&nbsp;</blockquote>{" "}
+                        <p>{article.number},</p>
+                      </span>{" "}
+                      &nbsp;
+                      <span>
+                        <blockquote>pp&nbsp;</blockquote>{" "}
+                        <p>{article.pages},</p>
+                      </span>{" "}
+                      &nbsp;
+                      <span>
+                        <p>{formatDate(article.date_published)}.</p>
+                      </span>
                     </span>
                   </DetailInfo>
                   <IssuesBody>
                     {show ? (
                       <>
                         <span>
-                          <blockquote>
-                            <pre>a</pre>
-                            <p>
-                              Department of Electronics and Computer Engineering
-                            </p>
-                          </blockquote>
-                          <blockquote>
-                            <pre>b</pre>
-                            <p>Department of Civil Engineering</p>
-                          </blockquote>
+                          {getSortedAuthorNames(article).map(
+                            (author, index) => (
+                              <>
+                              <br />
+                                <pre key={index}>
+                                  {String.fromCharCode(97 + index)}: &nbsp;
+                                  {author.affiliation}, {author.country}
+                                </pre>
+                              </>
+                            )
+                          )}
                         </span>
                         <p onClick={ToggleShow}>
                           Show Less <IoIosArrowUp />
@@ -386,7 +394,18 @@ const page = ({ params }) => {
                     <p>{article.abstract}</p>
                   </AbstractContent>
                   <h3>Disclaimer:</h3>
-                  <p>This page may contain partial information. For more details, please refer to <a href={`https://nepjol.info/index.php/jiee/article/view/${article.url_id.split('/')[0]}`} target="_blank">this link.</a></p>
+                  <p>
+                    This page may contain partial information. For more details,
+                    please refer to{" "}
+                    <a
+                      href={`https://nepjol.info/index.php/jiee/article/view/${
+                        article.url_id.split("/")[0]
+                      }`}
+                      target="_blank"
+                    >
+                      this link.
+                    </a>
+                  </p>
                 </>
               ) : (
                 ""
