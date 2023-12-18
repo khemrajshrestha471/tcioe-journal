@@ -6,18 +6,16 @@ import CurrentIssue from "@/components/CurrentIssue";
 import Articles from "./articles/page";
 import Footer from "@/components/Footer";
 
-
-
-export default function Home() {
+export default function Home({ params }) {
   return (
     <>
-<Navbar />
-<SubNavbar />
-<Description />
-<Executive />
-<CurrentIssue />
-<Articles />
-<Footer />
+      <Navbar />
+      <SubNavbar />
+      <Description />
+      <Executive />
+      <CurrentIssue />
+      <Articles />
+      <Footer />
     </>
   )
 }
