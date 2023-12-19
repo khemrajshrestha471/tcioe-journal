@@ -88,7 +88,8 @@ const CustomLink = styled(Link)`
   color: black;
 `;
 
-const VolumeLink = styled(CustomLink)`
+const VolumeLink = styled.div`
+  color: black;
   display: flex;
   width: 100%;
 `;
@@ -138,7 +139,7 @@ const FilterNavbar = ({ allArticles }) => {
     <>
       <ContainerFull>
         {volumes.map((volume) => (
-          <VolumeLink key={volume} href={`/all-issues/${volume}`}>
+          <VolumeLink key={volume}>
             <Buttons>
               Volume {volume}
               <DropdownContent>

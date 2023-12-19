@@ -52,6 +52,13 @@ const Page = ({ params }) => {
           // Set all articles if no filters are applied
           setArticles(allArticles);
         }
+
+        // sort articles by date
+        setArticles((articles) =>
+          articles.sort((a, b) => {
+            return new Date(b.date_published) - new Date(a.date_published);
+          })
+        );
       } catch (error) {
         console.error("Error fetching data:", error);
       }

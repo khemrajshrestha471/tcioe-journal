@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import { FaRegFilePdf } from "react-icons/fa";
-
+import styled from "styled-components";
 import { ArticleBody, ArticlePosition, ArticleLists, Line, IndividualCard, PDFLink } from "@/components/ArticleCardStyles";
 
 const ViewButton = styled.div`
@@ -22,82 +21,93 @@ const ViewButton = styled.div`
     color: red;
 }`;
 
-const VolumePage = () => {
-  const [articlesByVolume, setArticlesByVolume] = useState({});
-  const [showAllArticles, setShowAllArticles] = useState({});
+const Page = ({ params }) => {
+  const [articles, setArticles] = useState([]);
+  const [showAllArticles, setShowAllArticles] = useState(false);
+  const [latestVolume, setLatestVolume] = useState(5);
+  const { volume, issue } = params;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetch all articles
         const response = await fetch(
           "https://notices.tcioe.edu.np/api/journal/articles/"
         );
-        const data = await response.json();
+        const allArticles = await response.json();
+        setArticles(allArticles);
 
-        const articlesGroupedByVolume = {};
-        data.forEach((article) => {
-          const { volume } = article;
-          if (!articlesGroupedByVolume[volume]) {
-            articlesGroupedByVolume[volume] = [];
-          }
-          articlesGroupedByVolume[volume].push(article);
-        });
+        // Calculate latest volume
+        const latestVolume = Math.max(
+          ...allArticles.map((article) => article.volume)
+        );
+        setLatestVolume(latestVolume);
 
-        setArticlesByVolume(articlesGroupedByVolume);
-        setShowAllArticles(Object.fromEntries(Object.keys(articlesGroupedByVolume).map(volume => [volume, false])));
+        // Only show articles from latest volume
+        const filteredArticles = allArticles.filter(
+          (article) => article.volume === latestVolume
+        );
+        
+        // sort articles by date
+        setArticles((articles) =>
+          articles.sort((a, b) => {
+            return new Date(b.date_published) - new Date(a.date_published);
+          })
+        );
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [volume, issue]);
 
-  const handleReadMore = (volume) => {
-    setShowAllArticles(prevState => ({ ...prevState, [volume]: !prevState[volume] }));
+  const handleShowMore = () => {
+    setShowAllArticles(true);
+  };
+
+  const handleShowLess = () => {
+    setShowAllArticles(false);
   };
 
   return (
     <>
       <ArticleBody>
-        {Object.keys(articlesByVolume).map((volume) => (
-          <div key={volume}>
-            <h2>Volume {volume}</h2>
-            <Line width={"70px"} />
-            <ArticlePosition>
-            {articlesByVolume[volume].slice(0, showAllArticles[volume] ? articlesByVolume[volume].length : 3).map((article) => (
-                <ArticleLists key={article.id}>
-                  <IndividualCard>
-                    <p>
-                      <a href={`/articles/${article.id}`}>{article.title}</a>
-                    </p>
-                    {article.authors.map((author, index) => (
-                      // if index is greater than 0, add a comma before the author name
-                      index > 0 ? <span key={index}>, {`${author.given_name} ${author.family_name}`}</span> :
-                      <span key={index}>{`${author.given_name} ${author.family_name}`}</span>
-                    ))}
-                    <blockquote>{article.date_published}</blockquote>
-                    <PDFLink
-                      href={`https://nepjol.info/index.php/jiee/article/view/${article.url_id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <FaRegFilePdf /> View PDF
-                    </PDFLink>
-                  </IndividualCard>
-                </ArticleLists>
-              ))}
-            </ArticlePosition>
-            {articlesByVolume[volume].length > 3 && (
-              <ViewButton onClick={() => handleReadMore(volume)}>
-                {showAllArticles[volume] ? "Show Less" : "Show More"}
-              </ViewButton>
+        <h2>Volume {latestVolume}</h2>
+        <Line width={"70px"} />
+        <ArticlePosition>
+        {articles.slice(0, showAllArticles ? articles.length : 9).map(
+            (article) => (
+            <ArticleLists key={article.id}>
+              <IndividualCard>
+                <p>
+                  <a href={`/articles/${article.id}`}>{article.title}</a>
+                </p>
+                <span>{`${article.authors[0].given_name} ${article.authors[0].family_name}`}</span>
+                <blockquote>{article.date_published}</blockquote>
+                <PDFLink
+                  href={`https://nepjol.info/index.php/jiee/article/view/${article.url_id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaRegFilePdf /> View PDF
+                </PDFLink>
+              </IndividualCard>
+            </ArticleLists>
+          ))}
+        </ArticlePosition>
+        {articles.length > 9 && (
+          <>
+            {showAllArticles ? (
+              <ViewButton onClick={handleShowLess}>Show Less</ViewButton>
+            ) : (
+              <ViewButton onClick={handleShowMore}>Show More</ViewButton>
             )}
-          </div>
-        ))}
+          </>
+        )}
       </ArticleBody>
     </>
   );
 };
 
-export default VolumePage;
+export default Page;
