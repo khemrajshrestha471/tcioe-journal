@@ -47,6 +47,7 @@ const Page = ({ params }) => {
         const filteredArticles = allArticles.filter(
           (article) => article.volume === latestVolume
         );
+        setArticles(filteredArticles);
         
         // sort articles by date
         setArticles((articles) =>
