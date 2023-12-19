@@ -8,10 +8,12 @@ import { useState, useEffect } from "react";
 const ContainerFull = styled.div`
 border-bottom-color: black;
 display: flex;
-//margin-top: 1rem;
 width: 100 hw;  
 height: 4rem;
 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.09), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
+
+// align items to center
+align-items: center;
 `;
 
 const DropdownContainer = styled.div`
@@ -30,6 +32,12 @@ const DropdownContent = styled.div`
   padding: 0.5rem;
   color: black;
   transition: 0.5s ease-in-out;
+
+  // if mobile view
+  @media (max-width: 1024px) {
+    width: 100%;
+    left: 0rem;
+  }
 `;
 
 const DropdownOption = styled.div`
@@ -57,8 +65,15 @@ justify-content: center;
     ${DropdownContent} {
       display: flex;
       flex-direction: column;
-      top: 4rem;
       left: 0rem;
+
+      // set top to the height of the button
+      top: 3.24rem;
+
+      // if mobile view
+      @media (max-width: 1024px) {
+        top: 3.5rem;
+      }
     }
 }
 
@@ -76,6 +91,7 @@ justify-content: center;
 
 @media (max-width: 1024px) {
   padding: 1rem 2px;
+}
 `;
 
 
