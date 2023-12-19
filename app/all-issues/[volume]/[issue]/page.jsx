@@ -24,7 +24,6 @@ const ViewButton = styled.div`
 const Page = ({ params }) => {
   const [articles, setArticles] = useState([]);
   const [showAllArticles, setShowAllArticles] = useState(false);
-  const [latestVolume, setLatestVolume] = useState(5);
   const { volume, issue } = params;
 
   useEffect(() => {
@@ -35,20 +34,25 @@ const Page = ({ params }) => {
           "https://notices.tcioe.edu.np/api/journal/articles/"
         );
         const allArticles = await response.json();
-        setArticles(allArticles);
 
-        // Calculate latest volume
-        const latestVolume = Math.max(
-          ...allArticles.map((article) => article.volume)
-        );
-        setLatestVolume(latestVolume);
+        // Check if volume and issue exist in parameters
+        if (volume && issue) {
+          // Filter articles by both volume and issue
+          const filteredArticles = allArticles.filter(
+            (article) => article.volume.toString() === volume && article.number === parseInt(issue)
+          );
+          setArticles(filteredArticles);
+        } else if (volume) {
+          // Filter articles by volume only
+          const filteredArticles = allArticles.filter(
+            (article) => article.volume.toString() === volume
+          );
+          setArticles(filteredArticles);
+        } else {
+          // Set all articles if no filters are applied
+          setArticles(allArticles);
+        }
 
-        // Only show articles from latest volume
-        const filteredArticles = allArticles.filter(
-          (article) => article.volume === latestVolume
-        );
-        setArticles(filteredArticles);
-        
         // sort articles by date
         setArticles((articles) =>
           articles.sort((a, b) => {
@@ -74,7 +78,8 @@ const Page = ({ params }) => {
   return (
     <>
       <ArticleBody>
-        <h2>Volume {latestVolume}</h2>
+        <h2>Volume {volume}</h2>
+        {issue && <h3>Issue {issue}</h3>}
         <Line width={"70px"} />
         <ArticlePosition>
         {articles.slice(0, showAllArticles ? articles.length : 9).map(
