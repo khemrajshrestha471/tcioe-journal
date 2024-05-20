@@ -110,7 +110,7 @@ const CurrentIssue = () => {
           <Description>
             <h2>Journal of</h2>
             <h2>Innovations in Engineering Education</h2>
-            <p>Volume 5, Issue-1, March 2022</p>
+            <p>Volume 6, Issue-1, December 2023</p>
             <a href="/all-issues">View all issues <FaArrowRight /></a>
           </Description>
         </IssueBody>     
